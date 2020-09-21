@@ -9,6 +9,9 @@ const ContactForm = () => {
   const onSubmit = (data) => {
     setData(data);
   };
+  const onChange = e => {
+    setData({...data, [e.target.name]:e.target.value})
+  }
 
   return (
     <div className="App">
@@ -17,8 +20,10 @@ const ContactForm = () => {
           <label htmlFor="firstName">First Name*</label>
           <input
             name="firstName"
+            id="firstName"
             placeholder="Edd"
-            ref={register({ required: true, maxLength: 3 })}
+            onChange={e => onChange(e)}
+            ref={register({ required: true, maxLength: 15})}
           />
           {errors.firstName && (
             <p>Looks like there was an error: {errors.firstName.type}</p>
@@ -29,6 +34,8 @@ const ContactForm = () => {
           <label htmlFor="lastName">Last Name*</label>
           <input
             name="lastName"
+            onChange={e => onChange(e)}
+            id= "lastName"
             placeholder="Burke"
             ref={register({ required: true })}
           />
@@ -41,14 +48,14 @@ const ContactForm = () => {
           <label htmlFor="email" placeholder="bluebill1049@hotmail.com">
             Email*
           </label>
-          <input name="email" ref={register({ required: true })} />
+          <input name="email"  onChange={e => onChange(e)} id="email" ref={register({ required: true })} />
           {errors.email && (
             <p>Looks like there was an error: {errors.email.type}</p>
           )}
         </div>
         <div>
           <label htmlFor="message">Message</label>
-          <textarea name="message" ref={register({ required: false })} />
+          <textarea id="message" onChange={e => onChange(e)} name="message" ref={register({ required: false })} />
         </div>
         {data && (
           <pre style={{ textAlign: "left", color: "white" }}>
